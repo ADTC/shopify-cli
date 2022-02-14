@@ -96,7 +96,7 @@ module Script
           {
             cause_of_error: ShopifyCLI::Context.message(
               "script.error.script_not_found_cause",
-              e.script_name,
+              e.title,
               e.extension_point_type
             ),
           }

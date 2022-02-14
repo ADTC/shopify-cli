@@ -18,7 +18,7 @@ describe Script::Layers::Infrastructure::ScriptService do
       filename: script_config_filename,
     )
   end
-  let(:script_name) { "script name" }
+  let(:title) { "script name" }
   let(:script_config_version) { "1" }
   let(:expected_description) { "some description" }
   let(:expected_configuration_ui) { true }
@@ -40,7 +40,7 @@ describe Script::Layers::Infrastructure::ScriptService do
   let(:expected_script_config_content) do
     {
       "version" => expected_script_config_version,
-      "title" => script_name,
+      "title" => title,
       "description" => expected_description,
       "configuration" => expected_configuration,
     }

@@ -27,7 +27,7 @@ module Script
           change_directory(directory: initial_directory)
         end
 
-        def create(script_name:, extension_point_type:, language:)
+        def create(title:, extension_point_type:, language:)
           validate_metadata!(extension_point_type, language)
 
           ShopifyCLI::Project.write(
@@ -35,7 +35,7 @@ module Script
             project_type: :script,
             organization_id: nil,
             extension_point_type: extension_point_type,
-            script_name: script_name,
+            title: title,
             description: "#{extension_point_type} default script",
             language: language
           )
@@ -49,7 +49,7 @@ module Script
           Domain::ScriptProject.new(
             id: project.directory,
             env: project.env,
-            script_name: script_name,
+            title: title,
             description: description,
             extension_point_type: extension_point_type,
             language: language,
@@ -89,7 +89,7 @@ module Script
           Domain::ScriptProject.new(
             id: ctx.root,
             env: project.env,
-            script_name: script_name,
+            title: title,
             description: description,
             extension_point_type: extension_point_type,
             language: language,
@@ -109,12 +109,12 @@ module Script
           project_config_value!("extension_point_type")
         end
 
-        def script_name
-          project_config_value!("script_name")
+        def title
+          project_config_value!("title")
         end
 
         def description
-          project_config_value!("description")
+          project_config_value("description")
         end
 
         def language

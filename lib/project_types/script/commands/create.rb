@@ -26,10 +26,10 @@ module Script
           ctx: @ctx,
           language: form.language,
           sparse_checkout_branch: options.flags[:branch] || "master",
-          script_name: form.name,
+          title: form.name,
           extension_point_type: form.extension_point,
         )
-        @ctx.puts(@ctx.message("script.create.change_directory_notice", project.script_name))
+        @ctx.puts(@ctx.message("script.create.change_directory_notice", project.title))
       rescue StandardError => e
         UI::ErrorHandler.pretty_print_and_raise(e, failed_op: @ctx.message("script.create.error.operation_failed"))
       end

@@ -27,12 +27,12 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
   end
 
   describe "#create" do
-    let(:script_name) { "script_name" }
+    let(:title) { "title" }
     let(:extension_point_type) { "tax_filter" }
     let(:language) { "assemblyscript" }
 
     before do
-      dir = "/#{script_name}"
+      dir = "/#{title}"
       ctx.mkdir_p(dir)
       ctx.chdir(dir)
     end
@@ -41,7 +41,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
       ShopifyCLI::DB.stubs(:get).with(:acting_as_shopify_organization).returns(nil)
 
       instance.create(
-        script_name: script_name,
+        title: title,
         extension_point_type: extension_point_type,
         language: language
       )
@@ -71,7 +71,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
 
         assert_nil subject.env
         assert_nil subject.uuid
-        assert_equal script_name, subject.script_name
+        assert_equal title, subject.title
         assert_equal "#{extension_point_type} default script", subject.description
         assert_equal extension_point_type, subject.extension_point_type
         assert_equal language, subject.language
@@ -82,7 +82,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
   describe "#get" do
     subject { instance.get }
 
-    let(:script_name) { "script_name" }
+    let(:title) { "title" }
     let(:description) { "#{extension_point_type} default script" }
     let(:extension_point_type) { "tax_filter" }
     let(:language) { "assemblyscript" }
@@ -108,14 +108,14 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
     let(:valid_config) do
       {
         "extension_point_type" => "tax_filter",
-        "script_name" => script_name,
+        "title" => title,
         "description" => description,
         "script_config" => script_config,
       }
     end
     let(:actual_config) { valid_config }
     let(:current_project) do
-      TestHelpers::FakeProject.new(directory: File.join(ctx.root, script_name), config: actual_config)
+      TestHelpers::FakeProject.new(directory: File.join(ctx.root, title), config: actual_config)
     end
     let(:input_query) { nil }
 
@@ -151,7 +151,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
 
       it "should return the ScriptProject" do
         assert_equal current_project.directory, subject.id
-        assert_equal script_name, subject.script_name
+        assert_equal title, subject.title
         assert_equal description, subject.description
         assert_equal extension_point_type, subject.extension_point_type
         assert_equal language, subject.language
@@ -198,16 +198,8 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
         end
       end
 
-      describe "when missing script_name" do
-        let(:actual_config) { hash_except(valid_config, "script_name") }
-
-        it "should raise InvalidContextError" do
-          assert_raises(Script::Layers::Infrastructure::Errors::InvalidContextError) { subject }
-        end
-      end
-
-      describe "when missing description" do
-        let(:actual_config) { hash_except(valid_config, "description") }
+      describe "when missing title" do
+        let(:actual_config) { hash_except(valid_config, "title") }
 
         it "should raise InvalidContextError" do
           assert_raises(Script::Layers::Infrastructure::Errors::InvalidContextError) { subject }
@@ -236,7 +228,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
   describe "#update_env" do
     subject { instance.update_env(**args) }
 
-    let(:script_name) { "script_name" }
+    let(:title) { "title" }
     let(:extension_point_type) { "tax_filter" }
     let(:language) { "assemblyscript" }
     let(:uuid) { "uuid" }
@@ -251,7 +243,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
         "organization_id" => 1,
         "uuid" => uuid,
         "extension_point_type" => "tax_filter",
-        "script_name" => "script_name",
+        "title" => "title",
         "description" => "#{extension_point_type} default script",
         "script_config" => script_config,
       }
@@ -263,13 +255,13 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
     end
 
     before do
-      dir = "/#{script_name}"
+      dir = "/#{title}"
       ctx.mkdir_p(dir)
       ctx.chdir(dir)
 
       ShopifyCLI::DB.stubs(:get).with(:acting_as_shopify_organization).returns(nil)
       instance.create(
-        script_name: script_name,
+        title: title,
         extension_point_type: extension_point_type,
         language: language
       )
@@ -282,7 +274,7 @@ describe Script::Layers::Infrastructure::ScriptProjectRepository do
         {
           extension_point_type: "a",
           language: "b",
-          script_name: "c",
+          title: "c",
           project_type: "d",
           organization_id: "e",
           description: "f",

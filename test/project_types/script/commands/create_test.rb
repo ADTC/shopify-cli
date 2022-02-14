@@ -15,12 +15,12 @@ module Script
         ShopifyCLI::Core::Monorail.stubs(:log).yields
         @context = TestHelpers::FakeContext.new
         @language = "assemblyscript"
-        @script_name = "name"
+        @title = "name"
         @ep_type = "discount"
         @script_project = TestHelpers::FakeScriptProjectRepository.new.create(
           language: @language,
           extension_point_type: @ep_type,
-          script_name: @script_name
+          title: @title
         )
         @branch = "master"
         Layers::Application::ExtensionPoints.stubs(:languages).returns(%w(assemblyscript))
@@ -30,7 +30,7 @@ module Script
       def test_prints_help_with_no_name_argument
         root = File.expand_path(__dir__ + "../../../../..")
         FakeFS::FileSystem.clone(root + "/lib/project_types/script/config/extension_points.yml")
-        @script_name = nil
+        @title = nil
         io = capture_io { perform_command }
         assert_match(CLI::UI.fmt(Script::Command::Create.help), io.join)
       end
@@ -40,13 +40,13 @@ module Script
           ctx: @context,
           language: @language,
           sparse_checkout_branch: @branch,
-          script_name: @script_name,
+          title: @title,
           extension_point_type: @ep_type,
         ).returns(@script_project)
 
         @context
           .expects(:puts)
-          .with(@context.message("script.create.change_directory_notice", @script_project.script_name))
+          .with(@context.message("script.create.change_directory_notice", @script_project.title))
         perform_command
       end
 
@@ -66,7 +66,7 @@ module Script
 
       def perform_command_snake_case
         args = {
-          name: @script_name,
+          name: @title,
           extension_point: @ep_type,
           language: @language,
         }
@@ -76,7 +76,7 @@ module Script
 
       def perform_command
         run_cmd(
-          "script create --name=#{@script_name}
+          "script create --name=#{@title}
           --api=#{@ep_type} --language=#{@language}
           --branch=#{@branch}"
         )
