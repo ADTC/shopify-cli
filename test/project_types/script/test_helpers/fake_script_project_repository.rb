@@ -18,7 +18,7 @@ module TestHelpers
     def create(title:, extension_point_type:, language:,
       env: nil, input_query: nil, description: "project_description")
 
-      script_config = fake_script_config_repo.create({ "version" => 1, "title" => title })
+      script_config = fake_script_config_repo.create({ "version" => 1 })
 
       @project = Script::Layers::Domain::ScriptProject.new(
         id: "/#{title}",

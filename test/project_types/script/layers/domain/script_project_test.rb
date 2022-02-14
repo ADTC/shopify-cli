@@ -19,7 +19,6 @@ describe Script::Layers::Domain::ScriptProject do
   let(:script_config_content) do
     {
       "version" => "1",
-      "title" => title,
     }
   end
   let(:input_query) { "{ aField }" }
@@ -64,14 +63,13 @@ describe Script::Layers::Domain::ScriptProject do
     end
 
     describe "when optional properties are missing" do
-      let(:args) { all_args.slice(:id, :extension_point_type, :title, :description, :language) }
+      let(:args) { all_args.slice(:id, :extension_point_type, :title, :language) }
 
       it "should create the entity" do
         assert_equal id, subject.id
         assert_nil subject.env
         assert_equal extension_point_type, subject.extension_point_type
         assert_equal title, subject.title
-        assert_equal description, subject.description
         assert_equal language, subject.language
         assert_nil subject.script_config
       end
