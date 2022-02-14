@@ -5,10 +5,6 @@ module Script
     module Infrastructure
       module Languages
         class TypeScriptProjectCreator < ProjectCreator
-          def self.config_file
-            "package.json"
-          end
-
           def setup_dependencies
             task_runner = Infrastructure::Languages::TypeScriptTaskRunner.new(ctx)
             task_runner.set_npm_config
