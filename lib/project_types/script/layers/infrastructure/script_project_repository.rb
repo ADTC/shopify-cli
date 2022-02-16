@@ -189,11 +189,6 @@ module Script
 
           private
 
-          def update_hash(hash:, title:)
-            hash["version"] ||= "2"
-            hash["title"] = title
-          end
-
           def from_h(hash)
             Domain::ScriptConfig.new(content: hash, filename: filename)
           end
