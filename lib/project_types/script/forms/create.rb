@@ -3,10 +3,10 @@
 module Script
   module Forms
     class Create < ShopifyCLI::Form
-      flag_arguments :extension_point, :name, :language
+      flag_arguments :extension_point, :title, :language
 
       def ask
-        self.name = valid_name
+        self.title = valid_name
         self.extension_point ||= ask_extension_point
         self.language = ask_language
       end
@@ -20,14 +20,14 @@ module Script
         )
       end
 
-      def ask_name
-        CLI::UI::Prompt.ask(@ctx.message("script.forms.create.script_name"))
+      def ask_title
+        CLI::UI::Prompt.ask(@ctx.message("script.forms.create.script_title"))
       end
 
       def valid_name
-        n = (name || ask_name).downcase.gsub(" ", "_")
-        return n if n.match?(/^[0-9A-Za-z_-]*$/)
-        raise Errors::InvalidScriptNameError
+        t = (title || ask_title).downcase.gsub(" ", "_")
+        return t if t.match?(/^[0-9A-Za-z_-]*$/)
+        raise Errors::InvalidScriptTitleError
       end
 
       def ask_language

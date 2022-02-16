@@ -76,7 +76,7 @@ module Script
 
       def perform_command
         run_cmd(
-          "script create --name=#{@title}
+          "script create --title=#{@title}
           --api=#{@ep_type} --language=#{@language}
           --branch=#{@branch}"
         )

@@ -8,7 +8,7 @@ module Script
       recommend_default_ruby_range
 
       options do |parser, flags|
-        parser.on("--name=NAME") { |name| flags[:name] = name }
+        parser.on("--title=TITLE") { |title| flags[:title] = title }
         parser.on("--api=API_NAME") { |ep_name| flags[:extension_point] = ep_name }
         parser.on("--language=LANGUAGE") { |language| flags[:language] = language }
         parser.on("--branch=BRANCH") { |branch| flags[:branch] = branch }
@@ -18,7 +18,7 @@ module Script
         form = Forms::Create.ask(@ctx, args, options.flags)
         return @ctx.puts(self.class.help) if form.nil?
 
-        unless !form.name.empty? && form.extension_point && form.language
+        unless !form.title.empty? && form.extension_point && form.language
           return @ctx.puts(self.class.help)
         end
 
@@ -26,7 +26,7 @@ module Script
           ctx: @ctx,
           language: form.language,
           sparse_checkout_branch: options.flags[:branch] || "master",
-          title: form.name,
+          title: form.title,
           extension_point_type: form.extension_point,
         )
         @ctx.puts(@ctx.message("script.create.change_directory_notice", project.title))
