@@ -2,8 +2,6 @@
 
 require "project_types/script/test_helper"
 
-class GenericProjectCreator < Script::Layers::Infrastructure::Languages::ProjectCreator; end
-
 describe Script::Layers::Infrastructure::Languages::ProjectCreator do
   include TestHelpers::FakeFS
 
@@ -23,7 +21,7 @@ describe Script::Layers::Infrastructure::Languages::ProjectCreator do
   let(:source) { File.join(path, sparse_checkout_set_path) }
 
   let(:project_creator) do
-    GenericProjectCreator.new(
+    Script::Layers::Infrastructure::Languages::ProjectCreator.new(
       ctx: context,
       type: extension_point_type,
       project_name: project_name,
