@@ -9,8 +9,6 @@ module Script
             task_runner = Infrastructure::Languages::AssemblyScriptTaskRunner.new(ctx)
             task_runner.set_npm_config
             super
-            command_runner.call(NPM_SET_REGISTRY_COMMAND)
-            command_runner.call(NPM_SET_ENGINE_STRICT_COMMAND)
 
             update_package_json_name
           end
