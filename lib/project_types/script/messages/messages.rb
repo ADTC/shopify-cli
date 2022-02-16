@@ -27,8 +27,8 @@ module Script
                                  "extension_point_type or title.",
           invalid_context_help: "Add these values.",
 
-          invalid_script_name_cause: "Script name contains unsupported characters.",
-          invalid_script_name_help: "Use only numbers, letters, hyphens, or underscores.",
+          invalid_script_title_cause: "Script title contains unsupported characters.",
+          invalid_script_title_help: "Use only numbers, letters, hyphens, or underscores.",
 
           no_existing_apps_cause: "Your script can't be pushed to an app because your Partner account "\
                                   "doesn't have any apps.",
@@ -37,8 +37,8 @@ module Script
           no_existing_orgs_cause: "Your account doesn't belong to a Partner Organization.",
           no_existing_orgs_help: "Visit https://partners.shopify.com/ to create an account.",
 
-          project_exists_cause: "A directory with this same name already exists.",
-          project_exists_help: "Choose a different name for your script.",
+          project_exists_cause: "A directory with this same title already exists.",
+          project_exists_help: "Choose a different title for your script.",
 
           invalid_extension_cause: "The name of the Script API is incorrect: %s.",
           invalid_extension_help: "Choose a supported API: %s.",
